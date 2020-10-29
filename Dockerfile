@@ -11,7 +11,7 @@ ENV MAX_PORT 65535
 WORKDIR /usr/src/app
 
 RUN apt-get update
-RUN apt-get install software-properties-common
+RUN apt-get -y install software-properties-common
 RUN apt-add-repository universe
 
 RUN apt-get update \
