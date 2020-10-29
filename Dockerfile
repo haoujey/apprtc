@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:20.04
 
 COPY entrypoint.sh /entrypoint.sh
 COPY index.js /usr/src/app/rest/index.js
