@@ -28,7 +28,7 @@ RUN apt-get update \
     && cd /usr/src/app/apprtc \
     && npm install \
     && npm install -g grunt-cli \
-    && pip install -r requirements.txt \
+    && pip3 install -r requirements.txt \
     && grunt build --force \
     && sed -ri -e "s/(if occupancy >=) 2:/\1 99:/" /usr/src/app/apprtc/out/app_engine/apprtc.py \
     && sed -ri -e "s/(if room.get_occupancy\(\) ==) 2:/\1 99:/" /usr/src/app/apprtc/out/app_engine/apprtc.py \
