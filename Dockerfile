@@ -10,7 +10,10 @@ ENV MAX_PORT 65535
 
 WORKDIR /usr/src/app
 
+RUN apt-get install software-properties-common
+
 RUN apt-add-repository universe
+
 RUN apt-get update \
     && apt-get -y install git nodejs npm golang lsb-release curl python-pip sqlite libevent-dev \
     && export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" \
