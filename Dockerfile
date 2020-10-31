@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu
 
 COPY entrypoint.sh /entrypoint.sh
 COPY index.js /usr/src/app/rest/index.js
@@ -10,12 +10,8 @@ ENV MAX_PORT 65535
 
 WORKDIR /usr/src/app
 
-RUN apt-get update
-RUN apt-get -y install software-properties-common
-RUN apt-add-repository universe
-
 RUN apt-get update \
-    && apt-get -y install git nodejs npm golang lsb-release curl python3-pip sqlite libevent-dev \
+    && apt-get -y install git nodejs npm golang lsb-release curl python-pip sqlite libevent-dev \
     && export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" \
     && echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
     && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
@@ -28,7 +24,7 @@ RUN apt-get update \
     && cd /usr/src/app/apprtc \
     && npm install \
     && npm install -g grunt-cli \
-    && pip3 install -r requirements.txt \
+    && pip install -r requirements.txt \
     && grunt build --force \
     && sed -ri -e "s/(if occupancy >=) 2:/\1 99:/" /usr/src/app/apprtc/out/app_engine/apprtc.py \
     && sed -ri -e "s/(if room.get_occupancy\(\) ==) 2:/\1 99:/" /usr/src/app/apprtc/out/app_engine/apprtc.py \
